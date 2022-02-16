@@ -1,0 +1,153 @@
+# WM INDEPENDENT KEYBINDINGS
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# BSPWM HOTKEYS
+
+# quit/restart bspwm
+super + shift + {q,r}
+	bspc {quit,wm -r}
+
+# close and kill
+super + shift + c
+	bspc node -c
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# STATE/FLAGS
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+
+# FOCUS/SWAP
+
+# focus/shift the node in the given direction
+super + {_,shift +}{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the last node/desktop
+{super,alt} + grave
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# swap the current node and the biggest node on current desktop
+super + g
+	bspc node -s biggest.local
+
+# focus the next/previous desktop in the current monitor
+alt + {h,l}
+	bspc desktop -f {prev,next}.local
+
+# focus or send to the given desktop
+alt + {_,shift + }{1-9}
+	bspc {desktop -f,node -d} {1-9}
+
+alt + shift + {h,l}
+	bspc node -d {prev,next}
+# PRESELECT
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# MOVE/RESIZE
+
+# expand a window by moving one of its side outward
+ctrl + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+ctrl + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+
+# APPLICATION KEYBINDINGS
+
+# Terminal emulator
+super + Return
+	$TERM
+
+# Browser
+super + alt + b
+	$BROWSER
+
+# Dmenu
+super + @space
+	dmenu_run -fn 'Source Code Pro-10'
+
+# lf File manager
+super + e
+	$TERM -e lf
+
+# Music Player
+super + alt + p
+	$TERM -e ncmpcpp
+
+# News
+super + alt + n
+	$TERM -e newsboat
+
+# Calendar
+super + alt + s
+	$TERM -e calcurse
+
+# Brightness
+#XF86MonBrightnessDown
+#	brightnessctl set 1%-
+XF86MonBrightness{Up,Down}
+	brightnessctl set {+1%,1%-}
+
+# Volume
+XF86Audio{Raise,Lower}Volume
+	pamixer -{i,d} 1
+#XF86AudioLowerVolume
+#	pamixer -d 1
+XF86AudioMute
+	pamixer -t
+# Power
+# Lockscreen
+#ctrl + alt + g
+#	prompt {"Lock?" "slock systemctl suspend -i"}
+#
+# Reboot/Poweroff through prompt script
+ctrl + alt + {r,p,g}
+	prompt {"Reboot?" "reboot", "Poweroff?" "poweroff","Lock?" "slock systemctl suspend -i"}
+
+##Wifi List
+super + alt + w
+	$TERM -e nmtui-connect
+## Test
+#alt + t
+#	~/code/bash/test.sh
+
+##Reload Polybar
+ctrl + alt + b
+	/home/kuruvilla/.config/polybar/launch.sh
+
