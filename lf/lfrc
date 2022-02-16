@@ -1,0 +1,84 @@
+# Basic Settings
+set preview true
+set hidden true
+#set drawbox true
+set icons true
+set ignorecase true
+
+
+# Custom Functions
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/html|application/json) $BROWSER "$f";;
+        text/*|application/json) $EDITOR "$f";;
+        *) setsid -f xdg-open "$f" 2> /dev/null ;;
+    esac
+}}
+
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+
+#cmd delete ${{
+#	clear; tput cup $(($(tput lines)/3)); tput bold
+#	set -f
+#	printf "%s\n\t" "$fx"
+#	printf "delete?[y/N]"
+#	read ans
+#	[ $ans = "y" ] && rm -rf  "$fx"
+#}}
+
+#cmd moveto ${{
+#	clear; tput cup $(($(tput lines)/3)); tput bold
+#	set -f
+#	clear; echo "Move to where?"
+#	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+#	for x in $fx; do
+#		eval mv -iv \"$x\" \"$dest\"
+#	done &&
+#	notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+#}}
+#
+#cmd copyto ${{
+#	clear; tput cup $(($(tput lines)/3)); tput bold
+#	set -f
+#	clear; echo "Copy to where?"
+#	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+#	for x in $fx; do
+#		eval cp -ivr \"$x\" \"$dest\"
+
+#}}
+
+# y (select for copy) and P to paste soft-link
+# d (select for cut) and P to paste hard-link
+#cmd link %{{
+#    set -- $(cat ~/.local/share/lf/files)
+#    mode="$1"
+#    shift
+#    if [ "$#" -lt 1 ]; then
+#        lf -remote "send $id echo no files to link"
+#        exit 0
+#    fi
+#    case "$mode" in
+#        # symbolically copy mode is indicating a soft link
+#        copy) ln -sr -t . -- "$@";;
+#        # while a move mode is indicating a hard link
+#        move) ln -t . -- "$@";;
+#    esac
+#    rm ~/.local/share/lf/files
+#    lf -remote "send clear"
+#}}
+#map P :link
+
+# Bindings
+map DD delete
+#map C copyto
+#map M moveto
+map <c-n> push :mkdir<space>
+map <c-r> reload
+# Bookmarks
+map bs mark-save
+map bl mark-load
+map br mark-remove
+map m
+map '
+map "

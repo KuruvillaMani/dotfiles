@@ -1,0 +1,40 @@
+set sandbox none
+set statusbar-home-tilde
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 2
+set selection-clipboard clipboard
+
+# Navigation
+#map g goto top
+map u scroll half-up
+map d scroll half-down
+map D scroll half-up
+map b scroll full-up
+map f scroll full-down
+map F follow
+# Change view
+map P toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+# Miscellaneous
+#map P print
+# Bookmarks
+#map A bmark
+#map L blist
+#map y bdelete
+
+# vim: filetype=conf
+
+set window-title-basename "true"
+
+#Colours
+set default-fg "#d8dee9"
+set default-bg "#2e3440"
+set recolor-darkcolor "#e5e9f0"
+set recolor-lightcolor "#3b4252"
+set recolor-reverse-video "true"
+#set recolor-keephue "false"

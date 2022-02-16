@@ -1,0 +1,9 @@
+!/bin/sh
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources &
+mpd &
+dunst &
+remaps &
+dwmblocks &
+xwallpaper --zoom /home/kuruvilla/pictures/wallpapers/spacex-VBNb52J8Trk-unsplash.jpg &
+picom -b &
+exec dwm
